@@ -1,0 +1,35 @@
+.primary-header {
+  color: $primary-header-color;
+  text-align: center;
+  font-weight: 700;
+  @media only screen and (max-width: 599px) {
+    font-size: 4rem;
+  }
+  @media only screen and (min-width: 600px) {
+    font-size: 5.5rem;
+    letter-spacing: 0.12rem;
+  }
+}
+
+.secondary-header {
+  color: $secondary-header-color;
+  text-align: center;
+  @media only screen and (max-width: 320px) {
+    font-size: 1.2rem;
+  }
+  @media only screen and (min-width: 321px) and (max-width: 599px) {
+    font-size: 1.2rem;
+  }
+  @media only screen and (min-width: 600px) {
+    font-size: 1.8rem;
+    line-height: 2rem;
+  }
+}
+
+p {
+  color: $main-text-color;
+  font-size: $default-font-size;
+  font-weight: 400;
+  width: 70vw;
+  margin-left: 15vw;
+}
