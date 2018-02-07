@@ -6,10 +6,10 @@
 
     <div class="map-container">
       <ul class="legend">
-        <li><img src="/yellow-circle.svg"  class="img" /> Light to moderate</li>
-        <li><img src="/orange-circle.svg" class="img"/> Medium to heavy</li>
-        <li><img src="/red-circle.svg" class="img"/> Severe<li>
-        <li><img src="/tsunami.svg" /> Tsunami warning</li>
+        <li><img src="/public/yellow-circle.svg"  class="img" /> Light to moderate</li>
+        <li><img src="/public/orange-circle.svg" class="img"/> Medium to heavy</li>
+        <li><img src="/public/red-circle.svg" class="img"/> Severe<li>
+        <li><img src="/public/tsunami.svg" /> Tsunami warning</li>
         <li><hr /></li>
         <li>Data by <a href="https://earthquake.usgs.gov" target="_blank">USGS</a></li>
         <li><hr /></li>
@@ -60,8 +60,9 @@ export default {
       this.formYesterday = moment(yesterday).format("ddd Do");
       this.formToday = moment(today).format("ddd Do");
 
-      let url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${this.yesterday}&endtime=${this.today}`
+      let url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${yesterday}&endtime=${today}`
 
+      console.log(url);
       axios.get(url)
           .then((res) => {
             const features = res.data.features;
@@ -69,13 +70,13 @@ export default {
             let quakes = features.map((quake) => {
               let icon = '';
               if (quake.properties.tsunami == 1) {
-                icon = 'tsunami.svg';
+                icon = '/public/tsunami.svg';
               } else if (quake.properties.mag < 4) {
-                icon = 'yellow-circle.svg';
+                icon = '/public/yellow-circle.svg';
               } else if (quake.properties.mag < 6) {
-                icon = 'orange-circle.svg';
+                icon = '/public/orange-circle.svg';
               } else {
-                icon = 'red-marker.svg';
+                icon = '/public/red-marker.svg';
               };
 
               let content = `
