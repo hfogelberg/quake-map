@@ -1,5 +1,5 @@
 .primary-header {
-  color: $primary-header-color;
+  color: $header-color;
   text-align: center;
   font-weight: 700;
   @media only screen and (max-width: 599px) {
@@ -12,8 +12,10 @@
 }
 
 .secondary-header {
-  color: $secondary-header-color;
+  background-color: $background-color;
+  color: $header-color;
   text-align: center;
+  padding: .5rem 0;
   @media only screen and (max-width: 320px) {
     font-size: 1.2rem;
   }
@@ -21,8 +23,8 @@
     font-size: 1.2rem;
   }
   @media only screen and (min-width: 600px) {
-    font-size: 1.8rem;
-    line-height: 2rem;
+    font-size: 2rem;
+    line-height: 2.2rem;
   }
 }
 

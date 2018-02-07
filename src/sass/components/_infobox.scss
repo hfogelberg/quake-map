@@ -1,0 +1,16 @@
+.info-box {
+  width: 25rem !important;
+  height: 15rem !important;
+  top: 0 !important;
+  left: 0 !important;
+  border-radius: 2px 2px 0 0;
+  background-color: $light-grey-color;
+  padding: 0;
+
+  &__description {
+    color: $dark-denim-color;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    margin-left: 1rem;
+  }
+}

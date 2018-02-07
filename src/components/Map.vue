@@ -1,10 +1,22 @@
 <template>
   <div class="quakes">
     <header class="header">
-      <h1 class="primary-header">Quake Map</h1>
+      <h1 class="primary-header">Quake Map ({{formYesterday}} - {{formToday}})</h1>
     </header>
 
     <div class="map-container">
+      <ul class="legend">
+        <li><img src="/yellow-circle.svg"  class="img" /> Light to moderate</li>
+        <li><img src="/orange-circle.svg" class="img"/> Medium to heavy</li>
+        <li><img src="/red-circle.svg" class="img"/> Severe<li>
+        <li><img src="/tsunami.svg" /> Tsunami warning</li>
+        <li><hr /></li>
+        <li>Data by <a href="https://earthquake.usgs.gov" target="_blank">USGS</a></li>
+        <li><hr /></li>
+        <li><a href="https://henrikfogelberg.com" _target="blank">Henrik Fogelberg</a></li>
+        <li>Code at <a href="https://github.com/hfogelberg/quake-map">Githbub</a></li>
+        <li><hr /></li>
+      </ul>
       <div id="myMap">
         <p>Fetching location and setting up map ... </p>
       </div>
@@ -24,7 +36,9 @@ export default {
         lng: 0.0,
         latLng: {},
         quakes: [],
-        map: null
+        map: null,
+        formYesterday: null,
+        formToday: null
       }
   },
   name: 'home',
@@ -43,7 +57,10 @@ export default {
       today = moment(today).format("YYYY-MM-DD");
       yesterday = moment(yesterday).format("YYYY-MM-DD");
 
-      let url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${yesterday}&endtime=${today}`
+      this.formYesterday = moment(yesterday).format("ddd Do");
+      this.formToday = moment(today).format("ddd Do");
+
+      let url = `https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=${this.yesterday}&endtime=${this.today}`
 
       axios.get(url)
           .then((res) => {
@@ -51,20 +68,25 @@ export default {
 
             let quakes = features.map((quake) => {
               let icon = '';
-              if (quake.properties.mag < 4) {
+              if (quake.properties.tsunami == 1) {
+                icon = 'tsunami.svg';
+              } else if (quake.properties.mag < 4) {
                 icon = 'yellow-circle.svg';
               } else if (quake.properties.mag < 6) {
                 icon = 'orange-circle.svg';
               } else {
-                icon = 'red-marker.svg'
+                icon = 'red-marker.svg';
               };
 
               let content = `
-                <div>
+                <div class="info-box">
                   <h2 class="secondary-header">${quake.properties.place}</h2><br>
-                  <p>Magnitude: ${quake.properties.mag}<p>
-                  <p>${moment(quake.properties.time).format("DD HH:mm")} utc</p>
-                  <p><a href="${quake.properties.url}" target="_blank">Details</a></p>
+                  <p class="info-box__description">
+                    ${moment(quake.properties.time).format("ddd Do HH:mm")} utc<br />
+                    Magnitude: ${quake.properties.mag}<br />
+                    <br />
+                    <a href="${quake.properties.url}" target="_blank">Details</a>
+                  </p>
                 </div>
               `
 
@@ -121,6 +143,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/main.scss";
 
+.img {
+  width: 2rem;
+}
+
 .quakes {
   width: 100vw;
   height: 100vh;
@@ -132,16 +158,28 @@ export default {
 }
 
 .map-container {
-  position: absolute;
-  margin-top: 6vh;
-  height: 95vh;
+  margin-top: 5vh;
+  display: flex;
   width: 100vw;
+  height: 95vh;
+}
+
+.legend {
+  padding-left: 1rem;
+  flex: .15;
+  list-style: none;
+  color: $main-text-color;
+}
+
+.legend > li {
+  line-height: 2rem;
+  margin-bottom: .7rem;
 }
 
 #myMap {
-  position: relative;
-  margin: 0 auto; 
+  flex: .85;
   height: 90%;
   width: 90%;
+  margin-right: 3rem;
 }
 </style>
