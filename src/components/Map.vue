@@ -4,14 +4,6 @@
       <h1 class="primary-header">Quake Map</h1>
     </header>
 
-    <div class="menu">
-      <button class='hamburger' 
-              @click="toggleMeny" 
-              v-bind:class="{menu: showMenu}">
-          &#9776;
-      </button>
-    </div>
-
     <div class="map-container">
       <div id="myMap">
         <p>Fetching location and setting up map ... </p>
@@ -137,13 +129,6 @@ export default {
 
 .header {
   height: 5vh;
-}
-
-.menu {
-  display: none;
-  line-height: 3vw;
-  margin-top: -3vw;
-  padding-left: 3rem;
 }
 
 .map-container {
