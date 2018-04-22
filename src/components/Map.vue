@@ -6,9 +6,9 @@
 
     <div class="map-container">
       <ul class="legend">
-        <li><img src="/public/yellow-circle.svg"  class="img" /> Light to moderate</li>
-        <li><img src="/public/orange-circle.svg" class="img"/> Medium to heavy</li>
-        <li><img src="/public/red-circle.svg" class="img"/> Severe<li>
+        <li><img src="/public/yellow-circle.svg"  class="img" /> Minor to Light</li>
+        <li><img src="/public/orange-circle.svg" class="img"/> Moderate</li>
+        <li><img src="/public/red-circle.svg" class="img"/> Major to Great<li>
         <li><img src="/public/tsunami.svg" /> Tsunami warning</li>
         <li><hr /></li>
         <li>Data by <a href="https://earthquake.usgs.gov" target="_blank">USGS</a></li>
@@ -71,9 +71,9 @@ export default {
               let icon = '';
               if (quake.properties.tsunami == 1) {
                 icon = '/public/tsunami.svg';
-              } else if (quake.properties.mag < 4) {
+              } else if (quake.properties.mag < 4.9) {
                 icon = '/public/yellow-circle.svg';
-              } else if (quake.properties.mag < 6) {
+              } else if (quake.properties.mag < 6.9) {
                 icon = '/public/orange-circle.svg';
               } else {
                 icon = '/public/red-marker.svg';

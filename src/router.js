@@ -1,15 +1,15 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Map from './components/Map.vue'
+import VueRouter from "vue-router"
+import QuakeMap from "./components/Map.vue";
+import NotFound from "./components/NotFound.vue";
+import HasError from "./components/HasError.vue";
 
-Vue.use(Router)
-
-export default new Router({
+const router = new VueRouter({
+  mode: "history",
   routes: [
-    {
-      path: '/',
-      name: 'map',
-      component: Map
-    }
+    { path: "/", component: QuakeMap, name: 'map' },
+    { path: "/error", component: HasError, name: 'hasError' },
+    { path: "*", component: NotFound, name: 'notFound' }
   ]
-})
+});
+
+export default router;
